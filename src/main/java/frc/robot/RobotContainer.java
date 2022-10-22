@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DistanceAuto;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TimedAuto;
+import frc.robot.commands.TurnAuto;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,27 +25,29 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final static DriveTrain drive = new DriveTrain();
-  private final static TimedAuto timedAuto = new TimedAuto();
-<<<<<<< HEAD
-=======
-  private final static DistanceAuto distanceAuto = new DistanceAuto(1.0);
->>>>>>> d86aa0f94e578c842e50bef039b2668cd85c3502
-  private static Joystick joy1;
-  private static Joystick joy2;
-  private final DriveTrain _driveTrain;
+  private   final             ExampleCommand    m_autoCommand   =new  ExampleCommand(m_exampleSubsystem);
+  private   final   static    DriveTrain        drive           =new  DriveTrain();
+  private   final   static    TimedAuto         timedAuto       =new  TimedAuto();
+  private   final   static    DistanceAuto      distanceAuto    =new  DistanceAuto(1.0);
+  private           static    Joystick          joy1;
+  private           static    Joystick          joy2;
+  private   final             DriveTrain       _driveTrain
+  ;/*private  final           DriveAuto      _driveAuto
+  ;*/
+  private final TurnAuto ta;
   //private final TankDrive _tankDrive;
   private final DistanceAuto _distanceAuto;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    _driveTrain = new DriveTrain();
-    new Joystick(Constants.joy1);
+    _driveTrain=new   DriveTrain()
+    ;ta=new    TurnAuto(_driveTrain, 90)
+    ;//_driveTrain.setDefaultCommand(   _turnAuto);
+    ;new Joystick(Constants.joy1);
     new Joystick(Constants.joy2);
     //_tankDrive = new TankDrive(_driveTrain, _leftJoystick, _rightJoystick);
-    _distanceAuto = new DistanceAuto(_driveTrain, 1);
+    _distanceAuto = new DistanceAuto(1);
     //_driveTrain.setDefaultCommand(_distanceAuto);
 
     configureButtonBindings();
@@ -66,11 +69,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return _distanceAuto;
     // An ExampleCommand will run in autonomous
-<<<<<<< HEAD
-    //return m_autoCommand;
-=======
-    return distanceAuto;
->>>>>>> d86aa0f94e578c842e50bef039b2668cd85c3502
   }
   public static Joystick getJoy1(){
     return joy1;
