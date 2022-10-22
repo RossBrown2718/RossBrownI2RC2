@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.DistanceAuto;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TimedAuto;
 import frc.robot.subsystems.DriveTrain;
@@ -28,11 +29,20 @@ public class RobotContainer {
   private final static TimedAuto timedAuto = new TimedAuto();
   private static Joystick joy1;
   private static Joystick joy2;
+  private final DriveTrain _driveTrain;
+  //private final TankDrive _tankDrive;
+  private final DistanceAuto _distanceAuto;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    joy1 = new Joystick(Constants.joy1);
-    joy2 = new Joystick(Constants.joy2);
+    _driveTrain = new DriveTrain();
+    new Joystick(Constants.joy1);
+    new Joystick(Constants.joy2);
+    //_tankDrive = new TankDrive(_driveTrain, _leftJoystick, _rightJoystick);
+    _distanceAuto = new DistanceAuto(_driveTrain, 1);
+    //_driveTrain.setDefaultCommand(_distanceAuto);
+
     configureButtonBindings();
   }
 
@@ -50,7 +60,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return timedAuto;
+    return _distanceAuto;
     // An ExampleCommand will run in autonomous
     //return m_autoCommand;
   }

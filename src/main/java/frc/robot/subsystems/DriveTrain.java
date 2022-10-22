@@ -12,6 +12,10 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class DriveTrain extends SubsystemBase {
+  
+  //private final WPI_TalonSRX  _leftDriveTalon;
+  //private final WPI_TalonSRX _rightDriveTalon;
+  private double ticksToMeters = (127.0/10581.)/100.0;
   private WPI_TalonSRX left = new WPI_TalonSRX(Constants.leftPort);
   private WPI_TalonSRX right = new WPI_TalonSRX(Constants.rightPort);
   /** Creates a new DriveTrain. */
@@ -26,6 +30,14 @@ public class DriveTrain extends SubsystemBase {
     left.set(ControlMode.PercentOutput, lPower);
     right.set(ControlMode.PercentOutput, rPower);
   }
+  public double getPos() {
+    return (left.getSelectedSensorPosition()+right.getSelectedSensorPosition()
+    /2*ticksToMeters);
+  } 
+public void resetEncoders() {
+  left.setSelectedSensorPosition(0, 0, 10);
+  right.setSelectedSensorPosition(0, 0, 10);
+}
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
